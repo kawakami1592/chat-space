@@ -35,9 +35,9 @@ Things you may want to cover:
 
 ## groupsテーブル
 
-|Column    |Type  |Options|
-|----------|------|-------|
-|group_name|string|null: false|
+|Column|Type  |Options|
+|------|------|-------|
+|name  |string|null: false|
 
 ### Association
 - has_many :groups_users
