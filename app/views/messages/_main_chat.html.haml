@@ -1,0 +1,26 @@
+.chat-main
+  .chat-header
+    .chat-header__group
+      %h2.chat-header__group__name jjjjjjj
+      %ul.chat-header__group__menber
+        %li.chat-header__group__menber__list kkkkk
+        %li.chat-header__group__menber__list jjjjjj
+
+    =link_to "#" do
+      .edit-btn Edit
+
+  .messages
+    .message
+      .message-info
+        %p.message-info__talker 送信者
+        %p.message-info__date 日時
+      %p.message-text fffffffff
+
+  .form
+    %form.new-message{action:"#",method:"post"}
+      .input-box
+        %input{placeholder:"type a message", type:"text", name:"message", id:"message_content"}
+        %label{class:"input-box__image", for:"message_image"}
+          = icon('fas', 'image')
+        %input{class:"input-box__image__file", type:"file", name:"message-image", id:"message_image"}
+      %input{type:"submit",name:"commit",value:"Send",class:"submit-btn"}
