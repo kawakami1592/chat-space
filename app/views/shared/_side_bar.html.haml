@@ -5,12 +5,15 @@
         = current_user.name
       %ul.side-header__box__menu
         %li.side-header__box__meny__new-group
-          = link_to "#" do
+          = link_to new_group_path do
             %i.fas.fa-pen-square
         %li.ide-header__box__meny__edit-user
           = link_to edit_user_path(current_user) do
             %i.fas.fa-cog
-
   .group
-    %p.group__name "sampul"
-    %p.group__message メッセージはありません
+    - current_user.groups.each do |group|
+      .group
+        = link_to group_messages_path(group) do
+          .group__name
+            = group.name
+          .group__message メッセージはありません
