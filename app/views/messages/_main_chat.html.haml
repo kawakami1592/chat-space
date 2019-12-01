@@ -17,10 +17,11 @@
       %p.message-text fffffffff
 
   .form
-    %form.new-message{action:"#",method:"post"}
+    = form_for [@group, @message],html:{class:"new-message"} do |f|
       .input-box
-        %input{placeholder:"type a message", type:"text", name:"message", id:"message_content"}
-        %label{class:"input-box__image", for:"message_image"}
+        = f.text_field :content, id: "message_content", placeholder: 'type a message'
+        = f.label :image, class: 'input-box__image' do
           = icon('fas', 'image')
-        %input{class:"input-box__image__file", type:"file", name:"message-image", id:"message_image"}
-      %input{type:"submit",name:"commit",value:"Send",class:"submit-btn"}
+          = f.file_field :image, class: 'input-box__image__file'
+      = f.submit 'Send', class: 'submit-btn'
+      
