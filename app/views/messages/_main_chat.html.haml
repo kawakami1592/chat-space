@@ -10,11 +10,7 @@
       .edit-btn Edit
 
   .messages
-    .message
-      .message-info
-        %p.message-info__talker 送信者
-        %p.message-info__date 日時
-      %p.message-text fffffffff
+    = render @messages
 
   .form
     = form_for [@group, @message],html:{class:"new-message"} do |f|
@@ -24,4 +20,3 @@
           = icon('fas', 'image')
           = f.file_field :image, class: 'input-box__image__file'
       = f.submit 'Send', class: 'submit-btn'
-      
