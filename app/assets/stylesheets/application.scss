@@ -11,6 +11,7 @@
 }
 a{
   text-decoration: none;
+  color: white;
 }
 .side-bar{
   background-color: #2f3e51;
@@ -44,16 +45,17 @@ a{
   }
 }
 
-.group{
+.groups{
   padding: 20px;
   height: calc(100vh - 100px);
   
-  &__name{
+  &__group__name{
     font-size: 15px;
   }
-  &__message{
+  &__group__message{
     font-size: 11px;
     margin-top: 5px;
+    margin-bottom: 40px;
   }
 }
 .chat-main{
