@@ -1,10 +1,14 @@
 .chat-main
   .chat-header
     .chat-header__group
-      %h2.chat-header__group__name jjjjjjj
+      %h2.chat-header__group__name
+        = @group.name
       %ul.chat-header__group__menber
-        %li.chat-header__group__menber__list kkkkk
-        %li.chat-header__group__menber__list jjjjjj
+        Member：
+        %li.chat-header__group__menber__list
+          - @group.group_users.each do |group_user|
+            = group_user.user.name
+
 
     =link_to edit_group_path(current_user) do
       .edit-btn Edit
