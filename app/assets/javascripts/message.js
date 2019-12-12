@@ -1,36 +1,21 @@
 $(function(){
   function buildHTML(message){
     // 「もしメッセージに画像が含まれていたら」という条件式
-    if (message.image != null) {
-      var html=`<div class="message">
-                  <div class="message-info">
-                    <div class="message-info__talker">
+    var message_image = message.image == null ? '' : `<img class="lower-message__image" src="${message.image}" ></img>`
+    var html=`<div class="message">
+                <div class="message-info">
+                  <div class="message-info__talker">
                     ${message.user_name}
-                    </div>
-                    <div class="message-info__date">
-                    ${message.created_at}
-                    </div>
                   </div>
-                  <p class="message-text">
-                  ${message.content}
-                  </p>
-                  <img class="lower-message__image" src="${message.image}" >
-                </div>`
-    } else {
-      var html=`<div class="message">
-                  <div class="message-info">
-                    <div class="message-info__talker">
-                    ${message.user_name}
-                    </div>
-                    <div class="message-info__date">
+                  <div class="message-info__date">
                     ${message.created_at}
-                    </div>
                   </div>
-                  <p class="message-text">
+                </div>
+                <p class="message-text">
                   ${message.content}
-                  </p>
-                </div>`
-    }
+                </p>
+                ${message_image}
+               </div>`
     return html
   }
 
