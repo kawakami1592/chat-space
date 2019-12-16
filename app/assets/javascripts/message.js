@@ -1,8 +1,7 @@
 $(function(){
   function buildHTML(message){
-    // 「もしメッセージに画像が含まれていたら」という条件式
     var message_image = message.image == null ? '' : `<img class="lower-message__image" src="${message.image}" ></img>`
-    var html=`<div class="message">
+    var html=`<div class="message",data-message-id="#{message.id}">
                 <div class="message-info">
                   <div class="message-info__talker">
                     ${message.user_name}
@@ -42,4 +41,28 @@ $(function(){
       alert('error');
     })
   })
+      // 〜〜〜〜自動更新〜〜〜〜
+  var reloadMessages = function() {
+    if (window.location.href.match(/\/groups\/\d+\/messages/)){
+      last_message_id = $('.message:last').data("message-id");
+      $.ajax({
+        url: "api/messages",
+        type: 'get',
+        dataType: 'json',
+        data: {id: last_message_id}
+      })
+      .done(function(messages) {
+        var insertHTML = '';
+        $.each(messages, function(i, message) {
+          insertHTML += buildHTML(message)
+        });
+        $('.messages').append(insertHTML);
+        $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight});
+      })
+      .fail(function() {
+        console.log('error');
+      });
+    };
+  };
+  setInterval(reloadMessages, 7000);
 });
