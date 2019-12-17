@@ -1,7 +1,7 @@
 $(function(){
   function buildHTML(message){
     var message_image = message.image == null ? '' : `<img class="lower-message__image" src="${message.image}" ></img>`
-    var html=`<div class="message",data-message-id="#{message.id}">
+    var html=`<div class="message" data-message-id="${message.id}">
                 <div class="message-info">
                   <div class="message-info__talker">
                     ${message.user_name}
@@ -55,9 +55,9 @@ $(function(){
         var insertHTML = '';
         $.each(messages, function(i, message) {
           insertHTML += buildHTML(message)
+          $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight});
         });
         $('.messages').append(insertHTML);
-        $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight});
       })
       .fail(function() {
         alert('error');
