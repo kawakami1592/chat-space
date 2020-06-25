@@ -11,7 +11,7 @@ RSpec.describe Message, type: :model do
         expect(build(:message, content: nil)).to be_valid
       end
 
-      it 'is メッセージと画像があれば' do
+      it 'メッセージと画像があれば' do
         expect(build(:message)).to be_valid
       end
     end

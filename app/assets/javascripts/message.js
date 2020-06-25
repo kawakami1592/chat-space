@@ -1,6 +1,6 @@
 $(function(){
   function buildHTML(message){
-    var message_image = message.image == null ? '' : `<img class="lower-message__image" src="${message.image}" ></img>`
+    var message_image = message.image == null ? '' : `src="${message.image}"`
     var html=`<div class="message" data-message-id="${message.id}">
                 <div class="message-info">
                   <div class="message-info__talker">
@@ -13,8 +13,8 @@ $(function(){
                 <p class="message-text">
                   ${message.content}
                 </p>
-                ${message_image}
-               </div>`
+                <img class="lower-message__image" ${message_image} >
+                </div>`
     return html
   }
 
@@ -33,36 +33,39 @@ $(function(){
     .done(function(message){
       var html = buildHTML(message);
       $(".messages").append(html);
-      $("#new-message")[0].reset();
+      $(".new_message")[0].reset();
       $(".submit-btn").prop('disabled',false);
       $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight});
     })
     .fail(function(){
       alert('error');
     })
-  })
+  });
       // 〜〜〜〜自動更新〜〜〜〜
   var reloadMessages = function() {
-    if (window.location.href.match(/\/groups\/\d+\/messages/)){
-      last_message_id = $('.message:last').data("message-id");
-      $.ajax({
-        url: "api/messages",
-        type: 'get',
-        dataType: 'json',
-        data: {id: last_message_id}
-      })
-      .done(function(messages) {
+    last_message_id = $('.message:last').data("message-id");
+    $.ajax({
+      url: "api/messages",
+      type: 'get',
+      dataType: 'json',
+      data: {id: last_message_id}
+    })
+    .done(function(messages) {
+      if (messages.length !== 0) {
         var insertHTML = '';
         $.each(messages, function(i, message) {
           insertHTML += buildHTML(message)
-          $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight});
         });
         $('.messages').append(insertHTML);
-      })
-      .fail(function() {
-        alert('error');
-      });
-    };
+        $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight});
+      }
+    })
+    .fail(function() {
+      alert('error');
+    });
   };
-  setInterval(reloadMessages, 7000);
+
+  if (window.location.href.match(/\/groups\/\d+\/messages/)){
+    setInterval(reloadMessages, 7000);
+  };
 });
